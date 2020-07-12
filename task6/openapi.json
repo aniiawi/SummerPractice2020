@@ -1,0 +1,147 @@
+{
+  "openapi" : "3.0.0",
+  "info" : {
+    "title" : "Api for 4th task",
+    "description" : "Anns handmade api",
+    "version" : "1.0.1"
+  },
+  "servers" : [ {
+    "url" : "/"
+  } ],
+  "paths" : {
+    "/start" : {
+      "get" : {
+        "summary" : "Starts simulating server",
+        "responses" : {
+          "200" : {
+            "description" : "Shows info about starting process",
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string",
+                  "example" : "Started"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/stop" : {
+      "get" : {
+        "summary" : "Stops simulating server",
+        "responses" : {
+          "200" : {
+            "description" : "Shows info about stopping process",
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string",
+                  "example" : "Stopped"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/add" : {
+      "get" : {
+        "summary" : "Adds variable to server",
+        "parameters" : [ {
+          "name" : "name",
+          "in" : "query",
+          "description" : "name of variable that'll be add",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "bv",
+          "in" : "query",
+          "description" : "begin value",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "number"
+          }
+        }, {
+          "name" : "f_r",
+          "in" : "query",
+          "description" : "value shows how much value changes per tic",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "number",
+            "default" : 1
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Shows info about adding proccess",
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string",
+                  "example" : "OK"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/list" : {
+      "get" : {
+        "summary" : "Gets list of varibales",
+        "responses" : {
+          "200" : {
+            "description" : "returns object with variables",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_200"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "inline_response_200" : {
+        "type" : "object",
+        "properties" : {
+          "len" : {
+            "type" : "integer",
+            "description" : "variables count"
+          },
+          "vars" : {
+            "type" : "object",
+            "additionalProperties" : {
+              "type" : "object",
+              "properties" : {
+                "code" : {
+                  "type" : "string"
+                },
+                "text" : {
+                  "type" : "number"
+                }
+              }
+            },
+            "example" : {
+              "a" : 1.23,
+              "b" : -1.33
+            }
+          }
+        }
+      }
+    }
+  }
+}
